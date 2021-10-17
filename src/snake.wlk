@@ -121,35 +121,38 @@ object food {
 
 }
 
-object toUp {
+// Hacer que todas las posiciones sepan contestar su direccion contraria
+// por ejemplo el opuesto de Up es Bottom, y el de Right es Left
+// Aprevechar eso para tener una unica definicion del metodo previous
+
+class Direction {
+	
+	const opposite
+	
+	method previous(position) = opposite.next(position)
+
+}
+
+object toUp inherits Direction(opposite = toDown) {
 
 	method next(position) = position.up(1)
 
-	method previous(position) = position.down(1)
-
 }
 
-object toRight {
+object toRight inherits Direction(opposite = toLeft) {
 
 	method next(position) = position.right(1)
 
-	method previous(position) = position.left(1)
-
 }
 
-object toBottom {
+object toDown inherits Direction(opposite = toUp) { // lo cambio a down porque es el opuesto de up, bottom es el opuesto de top jaja
 
 	method next(position) = position.down(1)
 
-	method previous(position) = position.up(1)
-
 }
 
-object toLeft {
+object toLeft inherits Direction(opposite = toRight) {
 
 	method next(position) = position.left(1)
 
-	method previous(position) = position.right(1)
-
 }
-

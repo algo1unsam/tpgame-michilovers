@@ -14,7 +14,7 @@ program snakegame {
 		// KEYBOARD
 	keyboard.up().onPressDo{ snakeHead.changeDirection(toUp) }
 	keyboard.right().onPressDo{ snakeHead.changeDirection(toRight) }
-	keyboard.down().onPressDo{ snakeHead.changeDirection(toBottom) }
+	keyboard.down().onPressDo{ snakeHead.changeDirection(toDown) }
 	keyboard.left().onPressDo{ snakeHead.changeDirection(toLeft) }
 	keyboard.s().onPressDo{ game.stop() }
 		// COMIENZA
