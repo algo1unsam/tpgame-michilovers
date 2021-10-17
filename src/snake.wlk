@@ -129,7 +129,7 @@ class Direction {
 	
 	const opposite
 	
-	method previous(position) = opposite.next(position)
+	method previous(position) = opposite.next(1)
 
 }
 
