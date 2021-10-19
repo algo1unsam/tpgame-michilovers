@@ -1,6 +1,40 @@
+import snake.*
+import wollok.game.*
 
-test "testX" {
+describe "Directions" {
 
-	assert.that(true)
+	const centro = game.at(2, 2)
+
+	test "toUp.next devuelve una posicion arriba" {
+		assert.equals(game.at(2, 3), toUp.next(centro))
+	}
+	
+	test "toDown.next devuelve una posicion abajo" {
+		assert.equals(game.at(2, 1), toDown.next(centro))
+	}
+	
+	test "toRight.next devuelve una posicion a la derecha" {
+		assert.equals(game.at(3, 2), toRight.next(centro))
+	}
+	
+	test "toLeft.next devuelve una posicion a la izquierda" {
+		assert.equals(game.at(1, 2), toLeft.next(centro))
+	}
+	
+	test "toUp.previous devuelve una posicion abajo" {
+		assert.equals(game.at(2, 1), toUp.previous(centro))
+	}
+	
+	test "toDown.previous devuelve una posicion arriba" {
+		assert.equals(game.at(2, 3), toDown.previous(centro))
+	}
+	
+	test "toRight.previous devuelve una posicion a la izquierda" {
+		assert.equals(game.at(1, 2), toRight.previous(centro))
+	}
+	
+	test "toLeft.previous devuelve una posicion a la derecha" {
+		assert.equals(game.at(3, 2), toLeft.previous(centro))
+	}
 
 }
