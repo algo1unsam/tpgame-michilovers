@@ -54,14 +54,62 @@ describe "Food" {
 		game.width(10)
 		assert.that(self.isInsideBoard(food.randomPos()))
 	}
-	
+
 	test "collideWithSnake aumenta timesCollided y cambia la posicion de food" {
 		const posInicial = food.position()
 		// Agrego el evento onTick para que no falle el metodo collideWithSnakeHead
-		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
+		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition()})
 		food.collideWithSnakeHead(snakeHead)
 		assert.notEquals(posInicial, food.position())
 		assert.equals(1, food.timesCollided())
+	}
+
+}
+
+describe "snakeHead y SnakeBody" {
+
+	test "addBodyPart genera un nuevo SnakeBody donde 'next' es nulo" {
+		assert.equals(null, snakeHead.next())
+		snakeHead.addBodyPart()
+		const body1 = snakeHead.next()
+		assert.notEquals(null, body1)
+		assert.equals(null, body1.next())
+		snakeHead.addBodyPart()
+		assert.notEquals(null, body1.next())
+		assert.equals(null, body1.next().next())
+	}
+
+	test "addBodyPart agrega los SnakeBody como visuales al objeto game" {
+		snakeHead.addBodyPart()
+		assert.that(game.hasVisual(snakeHead.next()))
+	}
+
+	test "changeDirection cambia la direccion de todos los SnakeBody" {
+		snakeHead.addBodyPart()
+		// Guardo la direccion actual
+		const currentDir = snakeHead.direction()
+		// Cambio la direccion de la cabeza
+		snakeHead.changeDirection(toRight)
+		assert.equals(toRight, snakeHead.direction())
+		assert.equals(currentDir, snakeHead.next().direction())
+	}
+
+	test "changePosition cambia la posicion de todos los SnakeBody" {
+		snakeHead.addBodyPart()
+		// Guardo la direccion actual
+		const currentPos = snakeHead.position()
+		// Cambio la direccion de la cabeza
+		snakeHead.changePosition()
+		assert.equals(snakeHead.direction().next(currentPos), snakeHead.position())
+		assert.equals(currentPos, snakeHead.next().position())
+	}
+
+	test "Si se sale del board, se remueve el evento 'MOVE SNAKE'" {
+		game.addVisual(snakeHead)
+		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition()})
+		4.times{ i => snakeHead.changePosition()}
+		assert.that(snakeHead.outOfBoundaries())
+		assert.throwsException({game.removeTickEvent("MOVE SNAKE") })
 	}
 
 }
