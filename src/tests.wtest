@@ -1,5 +1,6 @@
 import snake.*
 import wollok.game.*
+import food.*
 
 describe "Directions" {
 
@@ -52,16 +53,16 @@ describe "Food" {
 	test "randomPos devuelve una posicion dentro de los limites" {
 		game.height(10)
 		game.width(10)
-		assert.that(self.isInsideBoard(food.randomPos()))
+		assert.that(self.isInsideBoard(apple.randomPos()))
 	}
 
-	test "collideWithSnake aumenta timesCollided y cambia la posicion de food" {
-		const posInicial = food.position()
+	test "collideWithSnake aumenta timesCollided y cambia la posicion de apple" {
+		const posInicial = apple.position()
 		// Agrego el evento onTick para que no falle el metodo collideWithSnakeHead
 		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition()})
-		food.collideWithSnakeHead(snakeHead)
-		assert.notEquals(posInicial, food.position())
-		assert.equals(1, food.timesCollided())
+		apple.collideWithSnakeHead(snakeHead)
+		assert.notEquals(posInicial, apple.position())
+		assert.equals(1, apple.timesCollided())
 	}
 
 }
@@ -112,9 +113,8 @@ describe "snakeHead y SnakeBody" {
 		assert.throwsException({game.removeTickEvent("MOVE SNAKE") })
 	}
 	
-	test "Al llamar removeLast no ocurre nada si no hay SnakeBody's" {
-		snakeHead.removeLast()
-		assert.equals(null, snakeHead.next())
+	test "Al llamar removeLast tira error y finaliza el juego si no hay SnakeBody's" {
+		assert.throwsException({snakeHead.removeLast()})
 	}
 	
 	test "Al llamar removeLast se elimina solo el ultimo SnakeBody" {

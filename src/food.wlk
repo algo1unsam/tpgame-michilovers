@@ -26,6 +26,7 @@ object banana {
 	
 	method collideWithSnakeHead(snake) {
 		snake.removeLast()
+		position = self.randomPos()
 	}
 	
 }

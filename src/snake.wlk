@@ -51,6 +51,8 @@ object snakeHead {
 			game.removeVisual(next)
 			next.prev(null)
 			next = null
+		} else {
+			self.gameLost("Can't eat the banana without a body")
 		}
 	}
 
