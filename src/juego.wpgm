@@ -1,5 +1,6 @@
 import wollok.game.*
 import snake.*
+import food.*
 
 program snakegame {
 	// CONFIG	
@@ -7,7 +8,7 @@ program snakegame {
 	game.height(10)
 	game.width(10)
 		// VISUALES
-	game.addVisual(food)
+	game.addVisual(apple)
 	game.addVisual(snakeHead)
 	game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
 	game.onCollideDo(snakeHead, { obj => obj.collideWithSnakeHead(snakeHead) })

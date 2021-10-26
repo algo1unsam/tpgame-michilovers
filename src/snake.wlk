@@ -7,6 +7,8 @@ object snakeHead {
 	var direction = toLeft
 	var position = game.center()
 	const timesToWin = 10
+	
+	method image() = "head_" + direction.toString() + ".png" //	
 
 	method speed(timesCollided) = (timesToWin - timesCollided) * 80
 
@@ -82,6 +84,32 @@ class SnakeBody {
 	var property image = "spot.png"
 	var direction
 	var position = prev.lastPos()
+	
+	method image() {
+		if( self.isCorner() ) {
+			if ( (next.direction() == toUp and direction == toLeft) or (next.direction() == toRight and direction == toDown) ) {
+				return "corner1.png"
+			}
+			else if ( (next.direction() == toDown and direction == toLeft) or (next.direction() == toRight and direction == toUp) ) {
+				return "corner2.png"
+			}
+			else if (  (next.direction() == toDown and direction == toRight) or (next.direction() == toLeft and direction == toUp)  ) {
+				return "corner3.png"
+			}
+			else {
+				return "corner4.png"
+			}
+		}
+		else if( self.isLast() ) {
+			return "tail_" + direction.toString() + ".png"
+		}
+		else if ( direction == toLeft or direction == toRight ) {
+			return "body_horizontal.png"
+		}
+		else {
+			return "body_vertical.png"
+		}
+	}
 
 	method addBodyPart() {
 		if (next == null) {
@@ -117,25 +145,18 @@ class SnakeBody {
 	}
 	
 	method isLast() = next == null
+	
+	method isCorner() { // veo si es una esquina
+		if (next != null) {
+			return next.direction() != self.direction() // para que sea una esquina, la tail posterior debe tener una dirección diferente a la actual
+		}
+		else {
+			return false
+		}
+	}
 
 	method collideWithSnakeHead(snake) {
 		snake.gameLost("Got trapped, game lost :(")
-	}
-
-}
-
-object food {
-
-	var property timesCollided = 0
-	var property image = "manzana.png"
-	var property position = self.randomPos()
-
-	method randomPos() = game.at(0.randomUpTo(game.width()), 0.randomUpTo(game.height()))
-
-	method collideWithSnakeHead(snake) {
-		timesCollided += 1
-		snake.collideWithFood(timesCollided)
-		position = self.randomPos()
 	}
 
 }
