@@ -35,7 +35,19 @@ object snakeHead {
 			self.gameLost("Out of the board, game lost :(")
 		}
 	}
+	
+	method removeLast() {
+		if(not self.isLast() and not next.isLast()) {
+			next.removeLast()
+		} else if(not self.isLast()){
+			game.removeVisual(next)
+			next.prev(null)
+			next = null
+		}
+	}
 
+	method isLast() = next == null
+	
 	method outOfBoundaries() {
 		const tooHight = position.y() >= game.height()
 		const tooLow = position.y() < 0
@@ -93,6 +105,18 @@ class SnakeBody {
 		if (next != null) next.changePosition(position)
 		position = newPos
 	}
+	
+	method removeLast() {
+		if(not self.isLast() and not next.isLast()) {
+			next.removeLast()
+		} else if(not self.isLast()){
+			game.removeVisual(next)
+			next.prev(null)
+			next = null
+		}
+	}
+	
+	method isLast() = next == null
 
 	method collideWithSnakeHead(snake) {
 		snake.gameLost("Got trapped, game lost :(")

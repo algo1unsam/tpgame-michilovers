@@ -111,6 +111,19 @@ describe "snakeHead y SnakeBody" {
 		assert.that(snakeHead.outOfBoundaries())
 		assert.throwsException({game.removeTickEvent("MOVE SNAKE") })
 	}
+	
+	test "Al llamar removeLast no ocurre nada si no hay SnakeBody's" {
+		snakeHead.removeLast()
+		assert.equals(null, snakeHead.next())
+	}
+	
+	test "Al llamar removeLast se elimina solo el ultimo SnakeBody" {
+		snakeHead.addBodyPart()
+		const last = snakeHead.next()
+		snakeHead.removeLast()
+		assert.equals(null, snakeHead.next())
+		assert.equals(null, last.prev())
+	}
 
 }
 
