@@ -25,7 +25,7 @@ object banana {
 	method randomPos() = game.at(0.randomUpTo(game.width()), 0.randomUpTo(game.height()))
 	
 	method collideWithSnakeHead(snake) {
-		snake.remove(snake.last())
+		snake.removeLast()
 	}
 	
 }

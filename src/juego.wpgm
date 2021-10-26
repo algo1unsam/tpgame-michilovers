@@ -12,6 +12,7 @@ program snakegame {
 	game.addVisual(snakeHead)
 	game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
 	game.onCollideDo(snakeHead, { obj => obj.collideWithSnakeHead(snakeHead) })
+	game.schedule(20 * 1000, { game.addVisual(banana) })
 		// KEYBOARD
 	keyboard.up().onPressDo{ snakeHead.changeDirection(toUp) }
 	keyboard.right().onPressDo{ snakeHead.changeDirection(toRight) }
