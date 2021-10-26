@@ -1,5 +1,9 @@
 import wollok.game.*
 
+class Snake {
+	
+}
+
 object snakeHead {
 
 	var property next = null
@@ -8,7 +12,7 @@ object snakeHead {
 	var position = game.center()
 	const timesToWin = 10
 	
-	method image() = "head_" + direction.toString() + ".png" //	
+	method image() = "head_" + direction.toString() + ".png"
 
 	method speed(timesCollided) = (timesToWin - timesCollided) * 80
 
@@ -22,7 +26,6 @@ object snakeHead {
 	method direction() = direction
 
 	method changeDirection(newDir) {
-		if (next != null) next.changeDirection(direction)
 		direction = newDir
 	}
 
@@ -31,7 +34,10 @@ object snakeHead {
 	method lastPos() = direction.previous(position)
 
 	method changePosition() {
-		if (next != null) next.changePosition(position)
+		if (next != null) {
+			next.changePosition(position)
+			next.changeDirection(direction)
+		}
 		position = direction.next(position)
 		if (self.outOfBoundaries()) {
 			self.gameLost("Out of the board, game lost :(")
@@ -118,19 +124,21 @@ class SnakeBody {
 		} else next.addBodyPart()
 	}
 
-	method direction() = direction
-
 	method changeDirection(newDir) {
-		if (next != null) next.changeDirection(direction)
 		direction = newDir
 	}
+
+	method direction() = direction
 
 	method position() = position
 	
 	method lastPos() = direction.previous(position)
 
 	method changePosition(newPos) {
-		if (next != null) next.changePosition(position)
+		if (next != null) {
+			next.changePosition(position)
+			next.changeDirection(direction)
+		}
 		position = newPos
 	}
 	
