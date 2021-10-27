@@ -3,8 +3,8 @@ import wollok.game.*
 object snakeHead {
 
 	var property next = null
-	var direction = toLeft
-	var position = game.center()
+	var property direction = toLeft
+	var property position = game.center()
 	const timesToWin = 10
 	
 	method image() = "head_" + direction.toString() + ".png"
@@ -18,35 +18,33 @@ object snakeHead {
 		} else next.addBodyPart()
 	}
 
-	method direction() = direction
-
 	method changeDirection(newDir) {
 		direction = newDir
 	}
-
-	method position() = position
 	
 	method lastPos() = direction.previous(position)
 
 	method changePosition() {
-		if (next != null) {
+		if ( next != null ) {
 			next.changePosition(position)
 			next.changeDirection(direction)
 		}
 		position = direction.next(position)
-		if (self.outOfBoundaries()) {
+		if ( self.outOfBoundaries() ) {
 			self.gameLost("Out of the board, game lost :(")
 		}
 	}
 	
 	method removeLast() {
-		if(not self.isLast() and not next.isLast()) {
+		if( not self.isLast() and not next.isLast() ) {
 			next.removeLast()
-		} else if(not self.isLast()){
+		} 
+		else if( not self.isLast() ) {
 			game.removeVisual(next)
 			next.prev(null)
 			next = null
-		} else {
+		} 
+		else {
 			self.gameLost("Can't eat the banana without a body")
 		}
 	}
@@ -84,8 +82,8 @@ class SnakeBody {
 
 	var property next = null
 	var property prev
-	var direction
-	var position = prev.lastPos()
+	var property direction
+	var property position = prev.lastPos()
 	
 	method image() {
 		if( self.isCorner() ) {
@@ -112,7 +110,7 @@ class SnakeBody {
 	}
 
 	method addBodyPart() {
-		if (next == null) {
+		if ( next == null ) {
 			next = new SnakeBody(prev = self, direction = self.direction())
 			game.addVisual(next)
 		} else next.addBodyPart()
@@ -121,15 +119,11 @@ class SnakeBody {
 	method changeDirection(newDir) {
 		direction = newDir
 	}
-
-	method direction() = direction
-
-	method position() = position
 	
 	method lastPos() = direction.previous(position)
 
 	method changePosition(newPos) {
-		if (next != null) {
+		if ( next != null ) {
 			next.changePosition(position)
 			next.changeDirection(direction)
 		}
@@ -137,9 +131,10 @@ class SnakeBody {
 	}
 	
 	method removeLast() {
-		if(not self.isLast() and not next.isLast()) {
+		if( not self.isLast() and not next.isLast() ) {
 			next.removeLast()
-		} else if(not self.isLast()){
+		} 
+		else if( not self.isLast() ){
 			game.removeVisual(next)
 			next.prev(null)
 			next = null
@@ -148,7 +143,7 @@ class SnakeBody {
 	
 	method isLast() = next == null
 	
-	method isCorner() = next != null and return next.direction() != self.direction()
+	method isCorner() = next != null and next.direction() != self.direction()
 
 	method collideWithSnakeHead(snake) {
 		snake.gameLost("Got trapped, game lost :(")
