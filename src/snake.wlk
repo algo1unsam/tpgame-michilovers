@@ -15,7 +15,8 @@ object snakeHead {
 		if (next == null) {
 			next = new SnakeBody(prev = self, direction = self.direction())
 			game.addVisual(next)
-		} else next.addBodyPart()
+		} 
+		else next.addBodyPart()
 	}
 
 	method changeDirection(newDir) {
@@ -63,7 +64,8 @@ object snakeHead {
 		if (timesCollided >= timesToWin) {
 			game.removeTickEvent("MOVE SNAKE")
 			game.say(self, "YOU WON!! :D")
-		} else {
+		} 
+		else {
 			self.addBodyPart()
 				// Make it move faster
 			game.removeTickEvent("MOVE SNAKE")
@@ -113,7 +115,8 @@ class SnakeBody {
 		if ( next == null ) {
 			next = new SnakeBody(prev = self, direction = self.direction())
 			game.addVisual(next)
-		} else next.addBodyPart()
+		} 
+		else next.addBodyPart()
 	}
 
 	method changeDirection(newDir) {

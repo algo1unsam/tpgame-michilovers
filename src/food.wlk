@@ -1,13 +1,18 @@
 import snake.*
 import wollok.game.*
 
-object apple {
-
-	var property timesCollided = 0
-	var property image = "manzana.png"
+class Food {
+	
 	var property position = self.randomPos()
 
 	method randomPos() = game.at(0.randomUpTo(game.width()), 0.randomUpTo(game.height()))
+	
+}
+
+object apple inherits Food {
+
+	var property timesCollided = 0
+	var property image = "manzana.png"
 
 	method collideWithSnakeHead(snake) {
 		timesCollided += 1
@@ -17,12 +22,9 @@ object apple {
 
 }
 
-object banana {
+object banana inherits Food {
 
 	var property image = "banana.png"
-	var property position = self.randomPos()
-
-	method randomPos() = game.at(0.randomUpTo(game.width()), 0.randomUpTo(game.height()))
 	
 	method collideWithSnakeHead(snake) {
 		snake.removeLast()
