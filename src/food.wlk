@@ -26,6 +26,8 @@ object banana {
 	
 	method collideWithSnakeHead(snake) {
 		snake.removeLast()
+		game.removeVisual(self)
+		game.schedule(10 * 1000, { game.addVisual(self) })
 		position = self.randomPos()
 	}
 	
