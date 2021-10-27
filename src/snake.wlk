@@ -1,13 +1,8 @@
 import wollok.game.*
 
-class Snake {
-	
-}
-
 object snakeHead {
 
 	var property next = null
-	var property image = "player.png"
 	var direction = toLeft
 	var position = game.center()
 	const timesToWin = 10
@@ -89,7 +84,6 @@ class SnakeBody {
 
 	var property next = null
 	var property prev
-	var property image = "spot.png"
 	var direction
 	var position = prev.lastPos()
 	
@@ -111,11 +105,9 @@ class SnakeBody {
 		else if( self.isLast() ) {
 			return "tail_" + direction.toString() + ".png"
 		}
-		else if ( direction == toLeft or direction == toRight ) {
-			return "body_horizontal.png"
-		}
+
 		else {
-			return "body_vertical.png"
+			return "body_" + direction.sentido() + ".png"
 		}
 	}
 
@@ -156,14 +148,7 @@ class SnakeBody {
 	
 	method isLast() = next == null
 	
-	method isCorner() { // veo si es una esquina
-		if (next != null) {
-			return next.direction() != self.direction() // para que sea una esquina, la tail posterior debe tener una dirección diferente a la actual
-		}
-		else {
-			return false
-		}
-	}
+	method isCorner() = next != null and return next.direction() != self.direction()
 
 	method collideWithSnakeHead(snake) {
 		snake.gameLost("Got trapped, game lost :(")
@@ -171,37 +156,37 @@ class SnakeBody {
 
 }
 
-// Hacer que todas las posiciones sepan contestar su direccion contraria
-// por ejemplo el opuesto de Up es Bottom, y el de Right es Left
-// Aprevechar eso para tener una unica definicion del metodo previous
 
 class Direction {
 	
 	const opposite
+	const sentido
 	
 	method previous(position) = opposite.next(position)
+	
+	method sentido() = sentido
 
 }
 
-object toUp inherits Direction(opposite = toDown) {
+object toUp inherits Direction(opposite = toDown, sentido = "vertical") {
 
 	method next(position) = position.up(1)
 
 }
 
-object toRight inherits Direction(opposite = toLeft) {
+object toRight inherits Direction(opposite = toLeft, sentido = "horizontal") {
 
 	method next(position) = position.right(1)
 
 }
 
-object toDown inherits Direction(opposite = toUp) { // lo cambio a down porque es el opuesto de up, bottom es el opuesto de top jaja
+object toDown inherits Direction(opposite = toUp, sentido = "vertical") {
 
 	method next(position) = position.down(1)
 
 }
 
-object toLeft inherits Direction(opposite = toRight) {
+object toLeft inherits Direction(opposite = toRight, sentido = "horizontal") {
 
 	method next(position) = position.left(1)
 

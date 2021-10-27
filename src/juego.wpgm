@@ -7,18 +7,21 @@ program snakegame {
 	game.title("Snake Game")
 	game.height(10)
 	game.width(10)
-		// VISUALES
+	
+	// VISUALES
 	game.addVisual(apple)
 	game.addVisual(snakeHead)
 	game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
 	game.onCollideDo(snakeHead, { obj => obj.collideWithSnakeHead(snakeHead) })
 	game.schedule(10 * 1000, { game.addVisual(banana) })
-		// KEYBOARD
+	
+	// KEYBOARD
 	keyboard.up().onPressDo{ snakeHead.changeDirection(toUp) }
 	keyboard.right().onPressDo{ snakeHead.changeDirection(toRight) }
 	keyboard.down().onPressDo{ snakeHead.changeDirection(toDown) }
 	keyboard.left().onPressDo{ snakeHead.changeDirection(toLeft) }
 	keyboard.s().onPressDo{ game.stop() }
-		// COMIENZA
+	
+	// COMIENZA
 	game.start()
 }
