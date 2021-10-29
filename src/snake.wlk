@@ -89,18 +89,7 @@ class SnakeBody {
 	
 	method image() {
 		if( self.isCorner() ) {
-			if ( (next.direction() == toUp and direction == toLeft) or (next.direction() == toRight and direction == toDown) ) {
-				return "corner1.png"
-			}
-			else if ( (next.direction() == toDown and direction == toLeft) or (next.direction() == toRight and direction == toUp) ) {
-				return "corner2.png"
-			}
-			else if (  (next.direction() == toDown and direction == toRight) or (next.direction() == toLeft and direction == toUp)  ) {
-				return "corner3.png"
-			}
-			else {
-				return "corner4.png"
-			}
+			return direction.cornerWith(next.direction())
 		}
 		else if( self.isLast() ) {
 			return "tail_" + direction.toString() + ".png"
@@ -169,23 +158,47 @@ class Direction {
 object toUp inherits Direction(opposite = toDown, sentido = "vertical") {
 
 	method next(position) = position.up(1)
+	
+	method cornerWith(aDirection) = aDirection.cornerWithUp()
+	
+	method cornerWithLeft() = "corner1.png"
+	
+	method cornerWithRight() = "corner4.png"
 
 }
 
 object toRight inherits Direction(opposite = toLeft, sentido = "horizontal") {
 
 	method next(position) = position.right(1)
+	
+	method cornerWith(aDirection) = aDirection.cornerWithRight()
+	
+	method cornerWithUp() = "corner2.png"
+	
+	method cornerWithDown() = "corner1.png"
 
 }
 
 object toDown inherits Direction(opposite = toUp, sentido = "vertical") {
 
 	method next(position) = position.down(1)
+	
+	method cornerWith(aDirection) = aDirection.cornerWithDown()
+	
+	method cornerWithLeft() = "corner2.png"
+	
+	method cornerWithRight() = "corner3.png"
 
 }
 
 object toLeft inherits Direction(opposite = toRight, sentido = "horizontal") {
 
 	method next(position) = position.left(1)
+
+	method cornerWith(aDirection) = aDirection.cornerWithLeft()
+	
+	method cornerWithUp() = "corner3.png"
+	
+	method cornerWithDown() = "corner4.png"
 
 }
