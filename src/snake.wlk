@@ -45,7 +45,7 @@ class Snake {
 }
 
 object snakeHead inherits Snake(direction = toLeft, position = game.center()) {
-	const timesToWin = 20
+	const timesToWin = 10
 	
 	override method image() = "head_" + direction.toString() + ".png"
 	
