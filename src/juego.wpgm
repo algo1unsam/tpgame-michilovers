@@ -1,6 +1,6 @@
 import wollok.game.*
 import snake.*
-import food.*
+import colliders.*
 
 program snakegame {
 	// CONFIG	
@@ -9,11 +9,15 @@ program snakegame {
 	game.width(10)
 	
 	// VISUALES
-	game.addVisual(apple)
+	apple.addVisual()
 	game.addVisual(snakeHead)
 	game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
 	game.onCollideDo(snakeHead, { obj => obj.collideWithSnakeHead(snakeHead) })
-	game.schedule(10 * 1000, { game.addVisual(banana) })
+	game.schedule(10 * 1000, { banana.addVisual() })
+	game.schedule(10 * 500, { 
+		const stone = new Obstacle()
+		stone.schedule(stone)
+	})
 	
 	// KEYBOARD
 	keyboard.up().onPressDo{ snakeHead.changeDirection(toUp) }

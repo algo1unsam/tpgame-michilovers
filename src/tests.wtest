@@ -1,40 +1,40 @@
 import snake.*
 import wollok.game.*
-import food.*
+import colliders.*
 
 describe "Directions" {
 
 	const unaPosicion = game.at(2, 2)
 
-	test "toUp.next devuelve una posicion arriba" {
+	test "toUp.next devuelve una posición arriba" {
 		assert.equals(game.at(2, 3), toUp.next(unaPosicion))
 	}
 
-	test "toDown.next devuelve una posicion abajo" {
+	test "toDown.next devuelve una posición abajo" {
 		assert.equals(game.at(2, 1), toDown.next(unaPosicion))
 	}
 
-	test "toRight.next devuelve una posicion a la derecha" {
+	test "toRight.next devuelve una posición a la derecha" {
 		assert.equals(game.at(3, 2), toRight.next(unaPosicion))
 	}
 
-	test "toLeft.next devuelve una posicion a la izquierda" {
+	test "toLeft.next devuelve una posición a la izquierda" {
 		assert.equals(game.at(1, 2), toLeft.next(unaPosicion))
 	}
 
-	test "toUp.previous devuelve una posicion abajo" {
+	test "toUp.previous devuelve una posición abajo" {
 		assert.equals(game.at(2, 1), toUp.previous(unaPosicion))
 	}
 
-	test "toDown.previous devuelve una posicion arriba" {
+	test "toDown.previous devuelve una posición arriba" {
 		assert.equals(game.at(2, 3), toDown.previous(unaPosicion))
 	}
 
-	test "toRight.previous devuelve una posicion a la izquierda" {
+	test "toRight.previous devuelve una posición a la izquierda" {
 		assert.equals(game.at(1, 2), toRight.previous(unaPosicion))
 	}
 
-	test "toLeft.previous devuelve una posicion a la derecha" {
+	test "toLeft.previous devuelve una posición a la derecha" {
 		assert.equals(game.at(3, 2), toLeft.previous(unaPosicion))
 	}
 
@@ -50,24 +50,51 @@ describe "Food" {
 		return not tooHight && not tooLow && not tooRight && not tooLeft
 	}
 
-	test "randomPos devuelve una posicion dentro de los limites" {
+	test "randomPos devuelve una posición dentro de los limites" {
 		game.height(10)
 		game.width(10)
 		assert.that(self.isInsideBoard(apple.randomPos()))
 	}
 
-	test "collideWithSnake aumenta timesCollided y cambia la posicion de apple" {
+	test "collideWithSnake aumenta timesCollided y cambia la posición de apple" {
+		apple.addVisual()
 		const posInicial = apple.position()
-		// Agrego el evento onTick para que no falle el metodo collideWithSnakeHead
-		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition()})
+		// Agrego el evento onTick para que no falle el método collideWithSnakeHead
+		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
 		apple.collideWithSnakeHead(snakeHead)
 		assert.notEquals(posInicial, apple.position())
 		assert.equals(1, apple.timesCollided())
 	}
-
+	
+	test "Al comer banana, disminuye su tamaño" {
+		snakeHead.addBodyPart() // agrego una parte
+		banana.addVisual()
+		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
+		banana.collideWithSnakeHead(snakeHead)
+		assert.equals(null, snakeHead.next()) // pierde la parte agregada
+	}
+	
 }
 
-describe "snakeHead y SnakeBody" {
+describe "Obstacles" {
+	
+	test "Los objetos se generan en un lugar vacío" {
+		const piedras = []
+		const tamanio = (game.height() - 1) * (game.width() - 1)
+		tamanio.times({ i => piedras.add( new Obstacle() ) }) // lleno todo el mapa de piedras
+		piedras.forEach({ piedra => piedra.addVisual() })
+		assert.that( piedras.all({ piedra => piedra.emptyPlace() }) ) // cada piedra debe tener lugares diferentes (no se superponen al spawnear)
+	}
+	
+	test "Si choca con un obstacle, pierde" {
+		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
+		const piedra = new Obstacle()
+		assert.throwsException({ piedra.collideWithSnakeHead(snakeHead) })
+	}
+	
+}
+
+describe "SnakeHead y SnakeBody" {
 
 	test "addBodyPart genera un nuevo SnakeBody donde 'next' es nulo" {
 		assert.equals(null, snakeHead.next())
@@ -85,7 +112,7 @@ describe "snakeHead y SnakeBody" {
 		assert.that(game.hasVisual(snakeHead.next()))
 	}
 
-	test "changeDirection cambia la direccion de todos los SnakeBody" {
+	test "changeDirection cambia la dirección de todos los SnakeBody" {
 		snakeHead.addBodyPart()
 		// Guardo la direccion actual
 		const currentDir = snakeHead.direction()
@@ -95,11 +122,11 @@ describe "snakeHead y SnakeBody" {
 		assert.equals(currentDir, snakeHead.next().direction())
 	}
 
-	test "changePosition cambia la posicion de todos los SnakeBody" {
+	test "changePosition cambia la posición de todos los SnakeBody" {
 		snakeHead.addBodyPart()
-		// Guardo la direccion actual
+		// Guardo la dirección actual
 		const currentPos = snakeHead.position()
-		// Cambio la direccion de la cabeza
+		// Cambio la dirección de la cabeza
 		snakeHead.changePosition()
 		assert.equals(snakeHead.direction().next(currentPos), snakeHead.position())
 		assert.equals(currentPos, snakeHead.next().position())
@@ -107,17 +134,17 @@ describe "snakeHead y SnakeBody" {
 
 	test "Si se sale del board, se remueve el evento 'MOVE SNAKE'" {
 		game.addVisual(snakeHead)
-		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition()})
-		4.times{ i => snakeHead.changePosition()}
+		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
+		5.times{ i => snakeHead.changePosition()}
 		assert.that(snakeHead.outOfBoundaries())
-		assert.throwsException({game.removeTickEvent("MOVE SNAKE") })
+		assert.throwsException({ game.removeTickEvent("MOVE SNAKE") })
 	}
 	
 	test "Al llamar removeLast tira error y finaliza el juego si no hay SnakeBody's" {
-		assert.throwsException({snakeHead.removeLast()})
+		assert.throwsException({ snakeHead.removeLast() })
 	}
 	
-	test "Al llamar removeLast se elimina solo el ultimo SnakeBody" {
+	test "Al llamar removeLast se elimina sólo el último SnakeBody" {
 		snakeHead.addBodyPart()
 		const last = snakeHead.next()
 		snakeHead.removeLast()
