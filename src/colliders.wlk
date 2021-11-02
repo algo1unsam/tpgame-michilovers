@@ -75,3 +75,33 @@ class Obstacle inherits Colliders {
 	} 
 	
 }
+
+object wall {
+	
+	const positions = []
+	
+	method setPlaceBottomTop(a, b) {
+		// a = es la coordenada que va recorriendo a b
+		// b = es la coordenada fija
+		a.times({ i => positions.add( game.at(i - 1, b) ) })
+		self.fillWithStones()
+		positions.clear()
+	}
+	
+	method setPlaceRightLeft(a, b) {
+		// a = es la coordenada que va recorriendo a b
+		// b = es la coordenada fija
+		b.times({ i => positions.add( game.at(a, i - 1) ) })
+		self.fillWithStones()
+		positions.clear()
+	}
+	
+	method fillWithStones() {
+		const stones = []
+		const wallSize = positions.size()
+		wallSize.times({ i => stones.add( new Obstacle() ) })
+		wallSize.times({ i => stones.get(i - 1).position(positions.get(i - 1)) })
+		stones.forEach({ stone => game.addVisual(stone) })	
+	}
+	
+}

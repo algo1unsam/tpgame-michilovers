@@ -19,6 +19,11 @@ program snakegame {
 		stone.schedule(stone)
 	})
 	
+	wall.setPlaceBottomTop(10, 0)
+	wall.setPlaceBottomTop(10, 9)
+	wall.setPlaceRightLeft(0, 10)
+	wall.setPlaceRightLeft(9, 10)
+	
 	// KEYBOARD
 	keyboard.up().onPressDo{ snakeHead.changeDirection(toUp) }
 	keyboard.right().onPressDo{ snakeHead.changeDirection(toRight) }

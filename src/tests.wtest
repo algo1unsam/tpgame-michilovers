@@ -68,6 +68,7 @@ describe "Food" {
 	
 	test "Al comer banana, disminuye su tamaño" {
 		snakeHead.addBodyPart() // agrego una parte
+		assert.notEquals(null, snakeHead.next())
 		banana.addVisual()
 		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
 		banana.collideWithSnakeHead(snakeHead)
@@ -153,4 +154,3 @@ describe "SnakeHead y SnakeBody" {
 	}
 
 }
-
