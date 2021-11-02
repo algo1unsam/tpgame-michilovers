@@ -14,7 +14,7 @@ program snakegame {
 	game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
 	game.onCollideDo(snakeHead, { obj => obj.collideWithSnakeHead(snakeHead) })
 	game.schedule(10 * 1000, { banana.addVisual() })
-	game.schedule(10 * 500, { 
+	game.schedule(10 * 1000, { 
 		const stone = new Obstacle()
 		stone.schedule(stone)
 	})

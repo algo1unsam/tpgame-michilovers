@@ -1,12 +1,13 @@
 import wollok.game.*
 import gameAdministrator.*
+import colliders.*
 
 object snakeHead {
 
 	var property next = null
 	var property direction = toLeft
 	var property position = game.center()
-
+	
 	method image() = "head_" + direction.toString() + ".png"
 
 	method speed(timesCollided) = (gameAdministrator.timesToWin() - timesCollided) * 80
@@ -58,8 +59,8 @@ object snakeHead {
 	}
 
 	method collideWithFood(timesCollided) {
-		if (gameAdministrator.isGameWon(timesCollided)) {
-			gameAdministrator.gameWon()
+		if (gameAdministrator.isLevelWon(timesCollided)) {
+			gameAdministrator.nextLevel(timesCollided)
 		} else {
 			self.addBodyPart()
 			self.moveFaster(timesCollided)
