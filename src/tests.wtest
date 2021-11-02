@@ -135,7 +135,7 @@ describe "SnakeHead y SnakeBody" {
 	test "Si se sale del board, se remueve el evento 'MOVE SNAKE'" {
 		game.addVisual(snakeHead)
 		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
-		5.times{ i => snakeHead.changePosition()}
+		6.times{ i => snakeHead.changePosition()}
 		assert.that(snakeHead.outOfBoundaries())
 		assert.throwsException({ game.removeTickEvent("MOVE SNAKE") })
 	}
