@@ -5,7 +5,7 @@ import wollok.game.*
 
 object gameAdministrator {
 
-	var timesToWin = 10
+	const timesToWin = 10
 	var level = 1
 	const maxLevel = 2
 
@@ -50,7 +50,7 @@ object gameAdministrator {
         game.schedule(10 * 1000, { banana.addVisual() })
         game.schedule(10 * 500, { 
             const stone = new Obstacle()
-            stone.schedule(stone)
+            stone.schedule()
         })
         keyboard.up().onPressDo{ snakeHead.changeDirection(toUp) }
         keyboard.right().onPressDo{ snakeHead.changeDirection(toRight) }

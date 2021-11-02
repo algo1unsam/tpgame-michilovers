@@ -1,5 +1,6 @@
 import snake.*
 import wollok.game.*
+import gameAdministrator.*
 
 class Colliders {
 	
@@ -60,16 +61,16 @@ class Obstacle inherits Colliders {
 	
 	method collideWithSnakeHead(snake) {
 		
-		snake.gameLost("You crashed :(")
+		gameAdministrator.gameLost("You crashed :(")
 		
 	}
 	
-	method schedule(thing) {
+	method schedule() {
 		
-		thing.addVisual()
+		self.addVisual()
 		game.schedule(10 * 500, { 
 			const stone = new Obstacle()
-			stone.schedule(stone)
+			stone.schedule()
 		})
 		
 	} 
