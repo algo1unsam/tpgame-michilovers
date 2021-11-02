@@ -14,15 +14,10 @@ program snakegame {
 	game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
 	game.onCollideDo(snakeHead, { obj => obj.collideWithSnakeHead(snakeHead) })
 	game.schedule(10 * 1000, { banana.addVisual() })
-	game.schedule(10 * 500, { 
+	game.schedule(10 * 1000, { 
 		const stone = new Obstacle()
 		stone.schedule(stone)
 	})
-	
-	wall.setPlaceBottomTop(10, 0)
-	wall.setPlaceBottomTop(10, 9)
-	wall.setPlaceRightLeft(0, 10)
-	wall.setPlaceRightLeft(9, 10)
 	
 	// KEYBOARD
 	keyboard.up().onPressDo{ snakeHead.changeDirection(toUp) }

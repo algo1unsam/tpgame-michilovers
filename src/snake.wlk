@@ -1,11 +1,12 @@
 import wollok.game.*
+import colliders.*
 
 object snakeHead {
 
 	var property next = null
 	var property direction = toLeft
 	var property position = game.center()
-	const timesToWin = 10
+	var timesToWin = 10
 	
 	method image() = "head_" + direction.toString() + ".png"
 
@@ -61,9 +62,8 @@ object snakeHead {
 	}
 
 	method collideWithFood(timesCollided) {
-		if (timesCollided >= timesToWin) {
-			game.removeTickEvent("MOVE SNAKE")
-			game.say(self, "YOU WON!! :D")
+		if (timesCollided == timesToWin) {
+			self.nextLevel()
 		} 
 		else {
 			self.addBodyPart()
@@ -76,6 +76,24 @@ object snakeHead {
 	method gameLost(msg) {
 		game.removeTickEvent("MOVE SNAKE")
 		game.say(self, msg)
+	}
+	
+	method nextLevel() {
+		game.clear()
+		timesToWin = 10
+		wall.setPlaceBottomTop(10, 0)
+		wall.setPlaceBottomTop(10, 9)
+		wall.setPlaceRightLeft(0, 10)
+		wall.setPlaceRightLeft(9, 10)
+		apple.addVisual()
+		game.addVisual(self)
+		game.onTick(self.speed(0), "MOVE SNAKE", { self.changePosition() })
+		game.onCollideDo(self, { obj => obj.collideWithSnakeHead(self) })
+		game.schedule(10 * 1000, { banana.addVisual() })
+		game.schedule(10 * 500, { 
+			const stone = new Obstacle()
+			stone.schedule(stone)
+		})		
 	}
 
 }
