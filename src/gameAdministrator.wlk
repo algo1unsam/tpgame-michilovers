@@ -7,7 +7,7 @@ object gameAdministrator {
 
 	const timesToWin = 10
 	var level = 1
-	const maxLevel = 2
+	const maxLevel = 3
 
 	method timesToWin() = timesToWin
 
@@ -31,6 +31,7 @@ object gameAdministrator {
 		} else {
 			level += 1
 			self.resetGame()
+			self.addWalls()
 		}
 	}
 	
@@ -39,10 +40,6 @@ object gameAdministrator {
         apple.timesCollided(0)
         snakeHead.position(game.center())
         snakeHead.next(null)
-        wall.setPlaceBottomTop(10, 0)
-        wall.setPlaceBottomTop(10, 9)
-        wall.setPlaceRightLeft(0, 10)
-        wall.setPlaceRightLeft(9, 10)
         apple.addVisual()
         game.addVisual(snakeHead)
         game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
@@ -57,5 +54,19 @@ object gameAdministrator {
         keyboard.down().onPressDo{ snakeHead.changeDirection(toDown) }
         keyboard.left().onPressDo{ snakeHead.changeDirection(toLeft) }
         keyboard.s().onPressDo{ game.stop() }	
+	}
+	
+	method addWalls() {
+		wall.setPlaceBottomTop(game.width(), 0)
+        wall.setPlaceBottomTop(game.width(), game.height() - 1)
+        wall.setPlaceRightLeft(0, game.width())
+        wall.setPlaceRightLeft(game.height() - 1, game.width())
+         
+	   	if(level == 3) {
+			wall.setPlaceBottomTop(game.width() - 1, 1)
+	        wall.setPlaceBottomTop(game.width() - 1, game.height() - 2)
+	        wall.setPlaceRightLeft(1, game.width() - 1)
+	        wall.setPlaceRightLeft(game.height() - 2, game.width() - 1)	   		
+	   	}
 	}
 }
