@@ -10,7 +10,7 @@ object snakeHead {
 	
 	method image() = "head_" + direction.toString() + ".png"
 
-	method speed(timesCollided) = (gameAdministrator.timesToWin() - timesCollided) * 80
+	method speed() = 5 * 100
 
 	method addBodyPart() {
 		if (next == null) {
@@ -63,14 +63,7 @@ object snakeHead {
 			gameAdministrator.nextLevel(timesCollided)
 		} else {
 			self.addBodyPart()
-			self.moveFaster(timesCollided)
 		}
-	}
-	
-	method moveFaster(timesCollided){
-		game.removeTickEvent("MOVE SNAKE")
-		game.onTick(self.speed(timesCollided), "MOVE SNAKE", { self.changePosition()})
-		
 	}
 
 }

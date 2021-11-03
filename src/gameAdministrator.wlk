@@ -45,7 +45,7 @@ object gameAdministrator {
         wall.setPlaceRightLeft(9, 10)
         apple.addVisual()
         game.addVisual(snakeHead)
-        game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
+        game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
         game.onCollideDo(snakeHead, { obj => obj.collideWithSnakeHead(snakeHead) })
         game.schedule(10 * 1000, { banana.addVisual() })
         game.schedule(10 * 500, { 
