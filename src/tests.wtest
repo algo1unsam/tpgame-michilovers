@@ -60,7 +60,7 @@ describe "Food" {
 		apple.addVisual()
 		const posInicial = apple.position()
 		// Agrego el evento onTick para que no falle el método collideWithSnakeHead
-		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
+		game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
 		apple.collideWithSnakeHead(snakeHead)
 		assert.notEquals(posInicial, apple.position())
 		assert.equals(1, apple.timesCollided())
@@ -70,7 +70,7 @@ describe "Food" {
 		snakeHead.addBodyPart() // agrego una parte
 		assert.notEquals(null, snakeHead.next())
 		banana.addVisual()
-		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
+		game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
 		banana.collideWithSnakeHead(snakeHead)
 		assert.equals(null, snakeHead.next()) // pierde la parte agregada
 	}
@@ -88,7 +88,7 @@ describe "Obstacles" {
 	}
 	
 	test "Si choca con un obstacle, pierde" {
-		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
+		game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
 		const piedra = new Obstacle()
 		assert.throwsException({ piedra.collideWithSnakeHead(snakeHead) })
 	}
@@ -135,7 +135,7 @@ describe "SnakeHead y SnakeBody" {
 
 	test "Si se sale del board, se remueve el evento 'MOVE SNAKE'" {
 		game.addVisual(snakeHead)
-		game.onTick(snakeHead.speed(0), "MOVE SNAKE", { snakeHead.changePosition() })
+		game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
 		6.times{ i => snakeHead.changePosition()}
 		assert.that(snakeHead.outOfBoundaries())
 		assert.throwsException({ game.removeTickEvent("MOVE SNAKE") })
