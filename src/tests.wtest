@@ -68,12 +68,20 @@ describe "Food" {
 	}
 	
 	test "Al comer banana, disminuye su tamaño" {
-		snakeHead.addBodyPart() // agrego una parte
-		assert.notEquals(null, snakeHead.next())
+		snakeHead.addBodyPart()
+		assert.notEquals(null, snakeHead.next()) // verifico que tiene una parte agregada
 		banana.addVisual()
 		game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
 		banana.collideWithSnakeHead(snakeHead)
 		assert.equals(null, snakeHead.next()) // pierde la parte agregada
+	}
+	
+	test "Al comer orange, desaparece todo el body" {
+		4.times({ i => snakeHead.addBodyPart() })
+		orange.addVisual()
+		game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
+		orange.collideWithSnakeHead(snakeHead)
+		assert.equals(null, snakeHead.next()) // pierde todas las partes agregadas
 	}
 	
 }
@@ -137,7 +145,7 @@ describe "SnakeHead y SnakeBody" {
 	test "Si se sale del board, se remueve el evento 'MOVE SNAKE'" {
 		game.addVisual(snakeHead)
 		game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
-		5.times{ i => snakeHead.changePosition()}
+		6.times{ i => snakeHead.changePosition() }
 		assert.that(snakeHead.outOfBoundaries())
 		assert.throwsException({ game.removeTickEvent("MOVE SNAKE") })
 	}

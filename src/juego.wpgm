@@ -14,10 +14,7 @@ program snakegame {
 	game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
 	game.onCollideDo(snakeHead, { obj => obj.collideWithSnakeHead(snakeHead) })
 	game.schedule(10 * 1000, { banana.addVisual() })
-	game.schedule(10 * 1000, { 
-		const stone = new Obstacle()
-		stone.schedule()
-	})
+	game.schedule(5 * 1000, { (new Obstacle()).schedule() })
 	
 	// KEYBOARD
 	keyboard.up().onPressDo{ snakeHead.changeDirection(toUp) }

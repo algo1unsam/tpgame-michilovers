@@ -10,13 +10,14 @@ object snakeHead {
 	
 	method image() = "head_" + direction.toString() + ".png"
 
-	method speed() = 5 * 100
+	method speed() = 3 * 100
 
 	method addBodyPart() {
-		if (next == null) {
+		if( next == null ) {
 			next = new SnakeBody(prev = self, direction = self.direction())
 			game.addVisual(next)
-		} else next.addBodyPart()
+		} 
+		else next.addBodyPart()
 	}
 
 	method changeDirection(newDir) {
@@ -26,32 +27,34 @@ object snakeHead {
 	method lastPos() = direction.previous(position)
 
 	method changePosition() {
-		if (next != null) {
+		if( next != null ) {
 			next.changePosition(position)
 			next.changeDirection(direction)
 		}
 		position = direction.next(position)
-		if (self.outOfBoundaries()) {
+		if( self.outOfBoundaries() ) {
 			gameAdministrator.gameLost("Out of the board, game lost :(")
 		}
 	}
 
 	method removeLast() {
-		if (not self.isLast() and not next.isLast()) {
+		if( not self.isLast() and not next.isLast() ) {
 			next.removeLast()
-		} else if (not self.isLast()) {
+		} 
+		else if( not self.isLast() ) {
 			game.removeVisual(next)
 			next.prev(null)
 			next = null
-		} else {
+		} 
+		else {
 			gameAdministrator.gameLost("Can't eat the banana without a body")
 		}
 	}
 	
 	method removeAll() {
-		if(next != null) {
+		if( next != null ) {
 			next.removeAll()
-			if(game.hasVisual(next)){
+			if( game.hasVisual(next) ){
 				game.removeVisual(next)				
 			}
 			next = null
@@ -69,9 +72,10 @@ object snakeHead {
 	}
 
 	method collideWithFood() {
-		if (gameAdministrator.isLevelWon()) {
+		if( gameAdministrator.isLevelWon() ) {
 			gameAdministrator.nextLevel()
-		} else {
+		} 
+		else {
 			self.addBodyPart()
 		}
 	}
@@ -86,20 +90,23 @@ class SnakeBody {
 	var property position = prev.lastPos()
 
 	method image() {
-		if (self.isCorner()) {
+		if( self.isCorner() ) {
 			return direction.cornerWith(next.direction())
-		} else if (self.isLast()) {
+		} 
+		else if( self.isLast() ) {
 			return "tail_" + direction.toString() + ".png"
-		} else {
+		} 
+		else {
 			return "body_" + direction.sentido() + ".png"
 		}
 	}
 
 	method addBodyPart() {
-		if (next == null) {
+		if( next == null ) {
 			next = new SnakeBody(prev = self, direction = self.direction())
 			game.addVisual(next)
-		} else next.addBodyPart()
+		} 
+		else next.addBodyPart()
 	}
 
 	method changeDirection(newDir) {
@@ -109,7 +116,7 @@ class SnakeBody {
 	method lastPos() = direction.previous(position)
 
 	method changePosition(newPos) {
-		if (next != null) {
+		if( next != null ) {
 			next.changePosition(position)
 			next.changeDirection(direction)
 		}
@@ -117,9 +124,10 @@ class SnakeBody {
 	}
 
 	method removeLast() {
-		if (not self.isLast() and not next.isLast()) {
+		if( not self.isLast() and not next.isLast() ) {
 			next.removeLast()
-		} else if (not self.isLast()) {
+		} 
+		else if( not self.isLast() ) {
 			game.removeVisual(next)
 			next.prev(null)
 			next = null
@@ -127,9 +135,9 @@ class SnakeBody {
 	}
 	
 	method removeAll() {
-		if(next != null) {
+		if( next != null ) {
 			next.removeAll()
-			if(game.hasVisual(next)){
+			if( game.hasVisual(next) ){
 				game.removeVisual(next)				
 			}
 			next = null

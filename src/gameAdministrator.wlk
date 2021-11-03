@@ -12,8 +12,8 @@ object gameAdministrator {
 	
 	method snakeAteApple(){
 		timesCollided += 1
-		if(timesCollided == timesToWin.div(2)){
-			game.addVisual(new Orange())
+		if( timesCollided == timesToWin.div(2) ){
+			orange.addVisual()
 		}
 	}
 	
@@ -34,7 +34,7 @@ object gameAdministrator {
 	method isGameWon() = self.isLevelWon() and level == maxLevel
 
 	method nextLevel() {
-		if(self.isGameWon()) {
+		if( self.isGameWon() ) {
 			self.gameWon()
 		} else {
 			level += 1
@@ -53,10 +53,7 @@ object gameAdministrator {
         game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
         game.onCollideDo(snakeHead, { obj => obj.collideWithSnakeHead(snakeHead) })
         game.schedule(10 * 1000, { banana.addVisual() })
-        game.schedule(10 * 500, { 
-            const stone = new Obstacle()
-            stone.schedule()
-        })
+    	game.schedule(5 * 1000, { (new Obstacle()).schedule() })
         keyboard.up().onPressDo{ snakeHead.changeDirection(toUp) }
         keyboard.right().onPressDo{ snakeHead.changeDirection(toRight) }
         keyboard.down().onPressDo{ snakeHead.changeDirection(toDown) }
