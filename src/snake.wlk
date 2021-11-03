@@ -51,7 +51,9 @@ object snakeHead {
 	method removeAll() {
 		if(next != null) {
 			next.removeAll()
-			game.removeVisual(next)
+			if(game.hasVisual(next)){
+				game.removeVisual(next)				
+			}
 			next = null
 		}
 	}
@@ -127,7 +129,9 @@ class SnakeBody {
 	method removeAll() {
 		if(next != null) {
 			next.removeAll()
-			game.removeVisual(next)
+			if(game.hasVisual(next)){
+				game.removeVisual(next)				
+			}
 			next = null
 		}
 	}
