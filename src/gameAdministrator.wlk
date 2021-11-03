@@ -8,6 +8,14 @@ object gameAdministrator {
 	const timesToWin = 10
 	var level = 1
 	const maxLevel = 2
+	var property timesCollided = 0
+	
+	method snakeAteApple(){
+		timesCollided += 1
+		if(timesCollided == timesToWin.div(2)){
+			game.addVisual(new Orange())
+		}
+	}
 
 	method timesToWin() = timesToWin
 
@@ -21,28 +29,32 @@ object gameAdministrator {
 		game.say(snakeHead, msg)
 	}
 	
-	method isLevelWon(timesCollided) = timesCollided >= timesToWin
+	method isLevelWon() = timesCollided >= timesToWin
 	
-	method isGameWon(timesCollided) = self.isLevelWon(timesCollided) and level == maxLevel
+	method isGameWon() = self.isLevelWon() and level == maxLevel
 
-	method nextLevel(timesCollided) {
-		if(self.isGameWon(timesCollided)) {
+	method nextLevel() {
+		if(self.isGameWon()) {
 			self.gameWon()
 		} else {
 			level += 1
 			self.resetGame()
+			self.addWalls()
 		}
 	}
 	
-	method resetGame() {
-		game.clear()
-        apple.timesCollided(0)
-        snakeHead.position(game.center())
-        snakeHead.next(null)
+	method addWalls(){
         wall.setPlaceBottomTop(10, 0)
         wall.setPlaceBottomTop(10, 9)
         wall.setPlaceRightLeft(0, 10)
         wall.setPlaceRightLeft(9, 10)
+	}
+	
+	method resetGame() {
+		game.clear()
+        timesCollided = 0
+        snakeHead.position(game.center())
+        snakeHead.removeAll()
         apple.addVisual()
         game.addVisual(snakeHead)
         game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })

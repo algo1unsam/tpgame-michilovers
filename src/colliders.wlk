@@ -26,13 +26,12 @@ class Colliders {
 
 object apple inherits Colliders {
 
-	var property timesCollided = 0
 	var property image = "manzana.png"
 
 	method collideWithSnakeHead(snake) {
 		
-		timesCollided += 1
-		snake.collideWithFood(timesCollided)
+		gameAdministrator.snakeAteApple()
+		snake.collideWithFood()
 		position = self.randomPos()
 		self.getUniquePos()
 				
@@ -52,6 +51,10 @@ object banana inherits Colliders {
 		game.schedule(10 * 1000, { self.addVisual() })
 		
 	}
+	
+}
+
+class Orange inherits Colliders {
 	
 }
 

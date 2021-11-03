@@ -1,6 +1,7 @@
 import snake.*
 import wollok.game.*
 import colliders.*
+import gameAdministrator.*
 
 describe "Directions" {
 
@@ -63,7 +64,7 @@ describe "Food" {
 		game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
 		apple.collideWithSnakeHead(snakeHead)
 		assert.notEquals(posInicial, apple.position())
-		assert.equals(1, apple.timesCollided())
+		assert.equals(1, gameAdministrator.timesCollided())
 	}
 	
 	test "Al comer banana, disminuye su tamaño" {
@@ -136,7 +137,7 @@ describe "SnakeHead y SnakeBody" {
 	test "Si se sale del board, se remueve el evento 'MOVE SNAKE'" {
 		game.addVisual(snakeHead)
 		game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
-		6.times{ i => snakeHead.changePosition()}
+		5.times{ i => snakeHead.changePosition()}
 		assert.that(snakeHead.outOfBoundaries())
 		assert.throwsException({ game.removeTickEvent("MOVE SNAKE") })
 	}

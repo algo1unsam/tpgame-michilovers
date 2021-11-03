@@ -47,6 +47,14 @@ object snakeHead {
 			gameAdministrator.gameLost("Can't eat the banana without a body")
 		}
 	}
+	
+	method removeAll() {
+		if(next != null) {
+			next.removeAll()
+			game.removeVisual(next)
+			next = null
+		}
+	}
 
 	method isLast() = next == null
 
@@ -58,9 +66,9 @@ object snakeHead {
 		return tooHight || tooLow || tooLeft || tooRight
 	}
 
-	method collideWithFood(timesCollided) {
-		if (gameAdministrator.isLevelWon(timesCollided)) {
-			gameAdministrator.nextLevel(timesCollided)
+	method collideWithFood() {
+		if (gameAdministrator.isLevelWon()) {
+			gameAdministrator.nextLevel()
 		} else {
 			self.addBodyPart()
 		}
@@ -112,6 +120,14 @@ class SnakeBody {
 		} else if (not self.isLast()) {
 			game.removeVisual(next)
 			next.prev(null)
+			next = null
+		}
+	}
+	
+	method removeAll() {
+		if(next != null) {
+			next.removeAll()
+			game.removeVisual(next)
 			next = null
 		}
 	}
