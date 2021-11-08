@@ -161,5 +161,7 @@ describe "SnakeHead y SnakeBody" {
 		assert.equals(null, snakeHead.next())
 		assert.equals(null, last.prev())
 	}
+	
+	//agregar test de que pasa al chocarse consigo mismo, (ver tema de que se cierra la pantalla al pasar eso)
 
 }
