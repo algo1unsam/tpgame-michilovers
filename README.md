@@ -16,7 +16,9 @@ comer.
 
 Hay diferentes tipos de comida:
 🍎: agrega una cola, reaparece cuando es comida.
+
 🍌: elimina una cola, tarda 10 segundos en aparecer. 
+
 🍊: deja solamente la cabeza, aparece cuando 5 manzanas son comidas.
 
 Cuando se llega a las 10 manzanas, se completará el nivel.
