@@ -15,6 +15,7 @@ en qué direccion se debe mover (usando las flechitas 🎮) para que la serpient
 comer.
 
 Hay diferentes tipos de comida:
+
 🍎: agrega una cola, reaparece cuando es comida.
 
 🍌: elimina una cola, tarda 10 segundos en aparecer. 
