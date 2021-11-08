@@ -66,7 +66,7 @@ class Obstacle inherits Colliders {
 	var property image = "stone.png"
 	
 	method collideWithSnakeHead(snake) {
-		gameAdministrator.gameLost("You crashed :(")
+		gameAdministrator.gameLost("LOSE, You crashed :(")
 	}
 	
 	method schedule() {
