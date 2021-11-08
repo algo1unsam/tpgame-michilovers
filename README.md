@@ -10,16 +10,20 @@
 
 ## Reglas de Juego / Instrucciones 📜
 
-Como en el clásico juego de "la vivorita", el jugador deberá guiarla indicandole
+Como en el clásico juego de "la vivorita", el jugador deberá guiarla indicándole
 en qué direccion se debe mover (usando las flechitas 🎮) para que la serpiente logre
 comer.
 
-A medida que vaya comiendo, la serpiente incrementará su tamaño y se volverá más rápida. 🐍💨
+Hay diferentes tipos de comida:
+🍎: agrega una cola, reaparece cuando es comida.
+🍌: elimina una cola, tarda 10 segundos en aparecer. 
+🍊: deja solamente la cabeza, aparece cuando 5 manzanas son comidas.
 
-El objetivo es lograr comer 10 veces sin chocar ni salirse del área de juego. 🏆
+Cuando se llega a las 10 manzanas, se completará el nivel.
+El objetivo es completar 3 niveles sin chocar ni salirse del área de juego. 🏆
 
 ## Otros ℹ️
 
-- Universidad Nacional de San Martín
-- Wollok 3.0.0 Juana Azurduy
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado
+- Universidad Nacional de San Martín.
+- Wollok 3.0.0 Juana Azurduy.
+- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado.
