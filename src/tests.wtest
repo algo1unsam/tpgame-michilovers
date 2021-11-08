@@ -162,12 +162,17 @@ describe "SnakeHead y SnakeBody" {
 		assert.equals(null, last.prev())
 	}
 	
+}	
+	describe "Administrador"{
+		
+		test "Observar que al perder no se agreguen de forma visual ningun tipo de comida"{
+			assert.notThat(game.hasVisual(apple))			
+		}
+	}
 	//agregar test de que pasa al chocarse consigo mismo, (ver tema de que se cierra la pantalla al pasar eso)
 	
-	//lograr que una vez que se pierda no se generen mas obstaculos ni comidas (si se puede) 
 	
 	//hay un test que se fija que al usar addBodyPart() se agregue una parte del body, pero no que al comer la manzana se agregue
 	
-	//verificar que una vez que se pierde, no se agreguen mas "foods" a la pantalla 
+	
 
-}
