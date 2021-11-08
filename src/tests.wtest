@@ -65,7 +65,10 @@ describe "Food" {
 		apple.collideWithSnakeHead(snakeHead)
 		assert.notEquals(posInicial, apple.position())
 		assert.equals(1, gameAdministrator.timesCollided())
+		
 	}
+	
+	//hay un test que se fija que al usar addBodyPart() se agregue una parte del body, pero no que al comer la manzana se agregue
 	
 	test "Al comer banana, disminuye su tamaño" {
 		snakeHead.addBodyPart()
@@ -173,10 +176,12 @@ describe "SnakeHead y SnakeBody" {
 			assert.notThat(game.hasVisual(apple))			
 		}
 	}
+	
+	
 	//agregar test de que pasa al chocarse consigo mismo, (ver tema de que se cierra la pantalla al pasar eso)
 	
 	
-	//hay un test que se fija que al usar addBodyPart() se agregue una parte del body, pero no que al comer la manzana se agregue
+	
 	
 	
 
