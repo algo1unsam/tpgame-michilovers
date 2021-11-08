@@ -167,5 +167,7 @@ describe "SnakeHead y SnakeBody" {
 	//lograr que una vez que se pierda no se generen mas obstaculos ni comidas (si se puede) 
 	
 	//hay un test que se fija que al usar addBodyPart() se agregue una parte del body, pero no que al comer la manzana se agregue
+	
+	//verificar que una vez que se pierde, no se agreguen mas "foods" a la pantalla 
 
 }
