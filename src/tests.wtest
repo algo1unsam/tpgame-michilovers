@@ -166,6 +166,10 @@ describe "SnakeHead y SnakeBody" {
 	describe "Administrador"{
 		
 		test "Observar que al perder no se agreguen de forma visual ningun tipo de comida"{
+			game.addVisual(apple)
+			game.addVisual(snakeHead)
+			game.onTick(snakeHead.speed(), "MOVE SNAKE", { snakeHead.changePosition() })
+			gameAdministrator.gameLost("manzana")
 			assert.notThat(game.hasVisual(apple))			
 		}
 	}
