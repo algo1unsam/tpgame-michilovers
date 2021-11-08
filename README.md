@@ -22,11 +22,18 @@ Hay diferentes tipos de comida:
 
 🍊: deja solamente la cabeza, aparece cuando 5 manzanas son comidas.
 
-Cuando se llega a las 10 manzanas, se completará el nivel.
+Además, hay obstáculos ⛔. Una piedra aparecerá de forma aleatoria cada 5 segundos,
+incluso puede aparecer en frente tuyo 😱, así que cuidado. Chocar con una de ellas 
+es morir.
+
+Para agregarle dificultad, una vez completado un nivel, se agregará una pared de 
+piedras a alrededor del mapa, reduciendo el espacio de movimiento de la serpiente.
+
+Un nivel se completará cuando se coman 10 manzanas.
 El objetivo es completar 3 niveles sin chocar ni salirse del área de juego. 🏆
 
 ## Otros ℹ️
 
 - Universidad Nacional de San Martín.
 - Wollok 3.0.0 Juana Azurduy.
-- Una vez terminado, no tenemos problemas en que el repositorio sea público / queremos manternerlo privado.
+- Una vez terminado, no tenemos problemas en que el repositorio sea público.
