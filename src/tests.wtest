@@ -163,5 +163,7 @@ describe "SnakeHead y SnakeBody" {
 	}
 	
 	//agregar test de que pasa al chocarse consigo mismo, (ver tema de que se cierra la pantalla al pasar eso)
+	
+	//lograr que una vez que se pierda no se generen mas obstaculos ni comidas 
 
 }
