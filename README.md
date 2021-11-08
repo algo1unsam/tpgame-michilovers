@@ -24,10 +24,10 @@ Hay diferentes tipos de comida:
 
 Además, hay obstáculos ⛔. Una piedra aparecerá de forma aleatoria cada 5 segundos,
 incluso puede aparecer en frente tuyo 😱, así que cuidado. Chocar con una de ellas 
-es morir.
+implica morir.
 
 Para agregarle dificultad, una vez completado un nivel, se agregará una pared de 
-piedras a alrededor del mapa, reduciendo el espacio de movimiento de la serpiente.
+piedras alrededor del mapa, reduciendo el espacio de movimiento de la serpiente.
 
 Un nivel se completará cuando se coman 10 manzanas.
 El objetivo es completar 3 niveles sin chocar ni salirse del área de juego. 🏆
