@@ -28,6 +28,19 @@ object gameAdministrator {
 	method gameLost(msg) {
 		game.removeTickEvent("MOVE SNAKE")
 		game.say(snakeHead, msg)
+		
+		if(game.hasVisual(apple)){
+			game.removeVisual(apple)
+		}
+		
+		if(game.hasVisual(banana)){
+			game.removeVisual(banana)
+		}
+		
+		if(game.hasVisual(orange)){
+			game.removeVisual(orange)
+		}
+		
 	}
 	
 	method isLevelWon() = timesCollided >= timesToWin
