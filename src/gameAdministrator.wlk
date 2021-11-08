@@ -2,6 +2,7 @@ import snake.*
 import colliders.*
 import wollok.game.*
 
+//Importante, el administrador es un objeto bien conocido y también conoce todos los objetos.
 
 object gameAdministrator {
 
