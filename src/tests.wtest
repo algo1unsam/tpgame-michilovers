@@ -188,11 +188,3 @@ describe "SnakeHead y SnakeBody" {
 			assert.notThat(game.hasVisual(apple))			
 		}
 }
-	
-	
-	
-	
-	
-	
-	
-
