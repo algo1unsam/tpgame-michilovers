@@ -43,6 +43,7 @@ describe "Directions" {
 
 describe "Food" {
 
+	
 	method isInsideBoard(pos) {
 		const tooHight = pos.y() >= game.height()
 		const tooLow = pos.y() < 0
@@ -68,7 +69,18 @@ describe "Food" {
 		
 	}
 	
-	//hay un test que se fija que al usar addBodyPart() se agregue una parte del body, pero no que al comer la manzana se agregue
+	test "Al comer una manzana, aumenta su tamaño"{
+		apple.addVisual()
+		assert.equals(null, snakeHead.next())
+		apple.collideWithSnakeHead(snakeHead)
+		const body1 = snakeHead.next()
+		assert.notEquals(null, body1)
+		assert.equals(null, body1.next())
+		apple.collideWithSnakeHead(snakeHead)
+		assert.notEquals(null, body1.next())
+		assert.equals(null, body1.next().next())
+	
+	}
 	
 	test "Al comer banana, disminuye su tamaño" {
 		snakeHead.addBodyPart()
