@@ -187,10 +187,9 @@ describe "SnakeHead y SnakeBody" {
 			gameAdministrator.gameLost("manzana")
 			assert.notThat(game.hasVisual(apple))			
 		}
-	}
+}
 	
 	
-	//agregar test de que pasa al chocarse consigo mismo, (ver tema de que se cierra la pantalla al pasar eso)
 	
 	
 	
