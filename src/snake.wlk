@@ -8,7 +8,7 @@ object snakeHead {
 	var property direction = toLeft
 	var property position = game.center()
 	
-	method image() = "head_" + direction.toString() + ".png"
+	method image() = "head_" + direction.nombre() + ".png"
 
 	method speed() = 3 * 100
 
@@ -94,7 +94,7 @@ class SnakeBody {
 			return direction.cornerWith(next.direction())
 		} 
 		else if( self.isLast() ) {
-			return "tail_" + direction.toString() + ".png"
+			return "tail_" + direction.nombre() + ".png"
 		} 
 		else {
 			return "body_" + direction.sentido() + ".png"
@@ -166,6 +166,8 @@ class Direction {
 }
 
 object toUp inherits Direction(opposite = toDown, sentido = "vertical") {
+	
+	const property nombre = "toUp"
 
 	method next(position) = position.up(1)
 
@@ -179,6 +181,8 @@ object toUp inherits Direction(opposite = toDown, sentido = "vertical") {
 
 object toRight inherits Direction(opposite = toLeft, sentido = "horizontal") {
 
+	const property nombre = "toRight"
+
 	method next(position) = position.right(1)
 
 	method cornerWith(aDirection) = aDirection.cornerWithRight()
@@ -191,6 +195,8 @@ object toRight inherits Direction(opposite = toLeft, sentido = "horizontal") {
 
 object toDown inherits Direction(opposite = toUp, sentido = "vertical") {
 
+	const property nombre = "toDown"
+
 	method next(position) = position.down(1)
 
 	method cornerWith(aDirection) = aDirection.cornerWithDown()
@@ -202,6 +208,8 @@ object toDown inherits Direction(opposite = toUp, sentido = "vertical") {
 }
 
 object toLeft inherits Direction(opposite = toRight, sentido = "horizontal") {
+
+	const property nombre = "toLeft"
 
 	method next(position) = position.left(1)
 
