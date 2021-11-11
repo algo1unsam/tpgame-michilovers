@@ -8,6 +8,10 @@
 
 ## Capturas
 
+![frutas y obstaculos](https://raw.githubusercontent.com/algo1unsam/tpgame-michilovers/master/frutas.png)
+
+![fin del juego](https://raw.githubusercontent.com/algo1unsam/tpgame-michilovers/master/fin_del_juego.png)
+
 ## Reglas de Juego / Instrucciones 📜
 
 Como en el clásico juego de "la vivorita", el jugador deberá guiarla indicándole
